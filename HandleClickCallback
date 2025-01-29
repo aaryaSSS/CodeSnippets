@@ -1,0 +1,25 @@
+import React, { useState, useCallback } from "react";
+
+const ChildComponent = React.memo(({ onClick }) => {
+  console.log("Child rendered");
+  return <button onClick={onClick}>Click Me</button>;
+});
+
+const ParentComponent = () => {
+  const [count, setCount] = useState(0);
+
+  // useCallback will ensure that the function is only recreated when `count` changes
+  const handleClick = useCallback(() => {
+    alert("Button clicked!");
+  }, []);  // Empty dependency array means the function will never change
+
+  return (
+    <div>
+      <ChildComponent onClick={handleClick} />
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+};
+
+export default ParentComponent;
