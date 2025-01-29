@@ -1,0 +1,33 @@
+import React, { useRef } from 'react';
+
+function Form() {
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const phoneRef = useRef(null);
+
+  const handleKeyPress = (e, nextField) => {
+    if (e.key === 'Enter' && nextField.current) {
+      nextField.current.focus();
+    }
+  };
+
+  return (
+    <div>
+      <input
+        ref={nameRef}
+        type="text"
+        placeholder="Name"
+        onKeyDown={(e) => handleKeyPress(e, emailRef)}
+      />
+      <input
+        ref={emailRef}
+        type="email"
+        placeholder="Email"
+        onKeyDown={(e) => handleKeyPress(e, phoneRef)}
+      />
+      <input ref={phoneRef} type="tel" placeholder="Phone" />
+    </div>
+  );
+}
+
+export default Form;
